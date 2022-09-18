@@ -33,6 +33,12 @@ app.use('/', TodoRouter)
 app.use('/about', TodoRouter)
 app.use('/delete', TodoRouter)
 
-app.listen(5500, () => {
-  console.log('server is running on port 5500')
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 5500;
+}
+
+
+app.listen(port, () => {
+  console.log('server is running...')
 })

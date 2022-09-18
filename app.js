@@ -20,12 +20,13 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static('public'))
 
 mongoose
-  .connect(process.env.MONGODB_URI, {
+  .connect("mongodb+srv://freda:freda123@todo.aqwewn9.mongodb.net/todolistDB?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => {
     console.log('connected to MongoDB')
+    console.log(process.env.MONGODB_URI);
   })
   .catch((err) => {
     console.log(

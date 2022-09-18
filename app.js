@@ -2,7 +2,13 @@ import express from 'express'
 import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 import bodyParser from 'body-parser'
-import TodoRouter from './router/todo.js'
+
+import {
+  getCustomTodos,
+  getHomeTodos,
+  handleDeleteTaskRequest,
+  receivePostedTasks,
+} from './controller/todo.js'
 
 dotenv.config({ path: '.env' })
 const app = express()
@@ -29,15 +35,15 @@ mongoose
   })
 
 //Routers
-app.use('/', TodoRouter)
-app.use('/about', TodoRouter)
-app.use('/delete', TodoRouter)
+app.get('/', getHomeTodos)
+app.get('/:customListName', getCustomTodos)
+app.post('/', receivePostedTasks)
+app.post('/delete', handleDeleteTaskRequest)
 
-let port = process.env.PORT;
-if (port == null || port == "") {
-  port = 5500;
+let port = process.env.PORT
+if (port == null || port == '') {
+  port = 5500
 }
-
 
 app.listen(port, () => {
   console.log('server is running...')
